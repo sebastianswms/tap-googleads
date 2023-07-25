@@ -2,10 +2,11 @@
 
 from urllib.parse import urlencode, urljoin
 from pathlib import Path
-from typing import Any, Dict, Optional, Iterable
+from typing import Any, Dict, Optional, Union, List, Iterable
 
 from memoization import cached
 
+from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from singer_sdk.exceptions import FatalAPIError, RetriableAPIError
 from singer_sdk.pagination import JSONPathPaginator
@@ -39,6 +40,7 @@ class GoogleAdsStream(RESTStream):
             "grant_type": "refresh_token",
         }
         auth_url = urljoin(base_auth_url, "?" + urlencode(auth_params))
+        self.logger.info(f"Foo: {auth_url=}")
         return GoogleAdsAuthenticator(stream=self, auth_endpoint=auth_url)
 
     @property
