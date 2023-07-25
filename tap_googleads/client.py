@@ -68,7 +68,7 @@ class GoogleAdsStream(RESTStream):
             params["order_by"] = self.replication_key
         return params
 
-    def validate_22response(self, response):
+    def validate_response(self, response):
         # Still catch error status codes
         if response.status_code == 403:
             msg = (
